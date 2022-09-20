@@ -9,7 +9,7 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 1280;
     public static final int HEIGHT = WIDTH / 16 * 9;
     public static final String NAME = "mango";
-    private static final float UPDATE_RATE = 1f / 60f;
+    private static final double UPDATE_RATE = 1.0 / 60.0;
 
     private final List<Entity> entities = new ArrayList<>();
     private final JFrame frame;
@@ -44,20 +44,21 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
-        var last = 0L;
-        var frameTimer = 0f;
-        var updateTimer = 0f;
+        var last = System.currentTimeMillis();
+        var frameTimer = 0.0;
+        var updateTimer = 0.0;
         var frames = 0;
         while (running) {
             var current = System.currentTimeMillis();
-            var delta = (float) (current - last) / 1000f;
+            var delta = (current - last) / 1000.0;
             last = current;
+            updateTimer += delta;
             frameTimer += delta;
             frames++;
             if (frameTimer >= 1) {
                 fps = frames;
                 frames = 0;
-                frameTimer = 0f;
+                frameTimer = 0.0;
             }
             if (updateTimer >= UPDATE_RATE) {
                 while (updateTimer >= UPDATE_RATE) {
@@ -69,7 +70,7 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void update(float dt) {
+    public void update(double dt) {
         System.out.println(fps);
     }
 
