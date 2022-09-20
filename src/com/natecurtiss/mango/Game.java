@@ -54,7 +54,6 @@ public class Game extends Canvas implements Runnable {
             last = current;
             updateTimer += delta;
             frameTimer += delta;
-            frames++;
             if (frameTimer >= 1) {
                 fps = frames;
                 frames = 0;
@@ -63,6 +62,7 @@ public class Game extends Canvas implements Runnable {
             if (updateTimer >= UPDATE_RATE) {
                 while (updateTimer >= UPDATE_RATE) {
                     updateTimer -= UPDATE_RATE;
+                    frames++;
                     update(delta);
                     render();
                 }
