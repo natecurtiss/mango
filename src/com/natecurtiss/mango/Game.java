@@ -59,26 +59,30 @@ public class Game extends Canvas implements Runnable {
                 frames = 0;
                 frameTimer = 0.0;
             }
-            if (updateTimer >= UPDATE_RATE) {
+            if (updateTimer >= UPDATE_RATE)
                 while (updateTimer >= UPDATE_RATE) {
                     updateTimer -= UPDATE_RATE;
                     frames++;
                     update(delta);
                     render();
                 }
-            }
         }
     }
 
     public void update(double dt) {
-        System.out.println(fps);
+        for (Entity e : entities)
+            e.update(dt);
     }
 
     public void render() {
-
+        for (Entity e : entities)
+            e.render();
     }
 
     public void add(Entity entity) {
+        entity.init(this);
         entities.add(entity);
     }
+
+    public int getFps() { return fps; }
 }
