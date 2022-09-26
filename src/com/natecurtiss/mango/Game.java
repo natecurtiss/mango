@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable {
         frame.pack();
 
         frame.setResizable(false);
+        frame.setSize(size);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -79,9 +80,20 @@ public class Game extends Canvas implements Runnable {
             e.render();
     }
 
-    public void add(Entity entity) {
+    public Game add(Entity entity) {
         entity.init(this);
+        entity.start();
         entities.add(entity);
+        frame.add(entity);
+        frame.pack();
+        return this;
+    }
+
+    public Game remove(Entity entity) {
+        entity.end();
+        entities.remove(entity);
+        frame.remove(entity);
+        return this;
     }
 
     public int getFps() { return fps; }
