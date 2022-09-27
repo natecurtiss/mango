@@ -19,10 +19,14 @@ public abstract class Sprite extends Entity {
         graphics.drawImage(image, x, y, w, h, this);
     }
 
-    public void setSprite(String path) {
-        image = new ImageIcon(path).getImage();
+    public void setSprite(Image img) {
+        image = img;
         var w = image.getWidth(this);
         var h = image.getHeight(this);
         setSize(w, h);
+    }
+
+    public void setSprite(String path) {
+        setSprite(new ImageIcon(path).getImage());
     }
 }
