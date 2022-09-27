@@ -1,11 +1,8 @@
 package com.natecurtiss.samplegame;
 
-import com.natecurtiss.mango.Entity;
+import com.natecurtiss.mango.Sprite;
 
-import java.awt.*;
-import java.io.IOException;
-
-public class Player extends Entity {
+public class Player extends Sprite {
     @Override
     public void start() {
         setSprite("src/com/natecurtiss/samplegame/IMG_8545.jpg");
