@@ -1,10 +1,7 @@
 package com.natecurtiss.mango;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public abstract class Entity extends JPanel {
     public double xScale = 1;
@@ -26,11 +23,12 @@ public abstract class Entity extends JPanel {
         if (image == null)
             return;
         var graphics = (Graphics2D) g;
-        var x = (int) Math.round(xPosition) + Game.WIDTH / 2 - getWidth() / 2;
-        var y = (int) Math.round(yPosition) + Game.HEIGHT / 2 - getHeight() / 2;
         var w = (int) (image.getWidth(this) * xScale);
         var h = (int) (image.getHeight(this) * yScale);
-        graphics.drawImage(image, x, y, this);
+        var x = (int) Math.round(xPosition) + Game.WIDTH / 2 - w / 2;
+        var y = (int) Math.round(yPosition) + Game.HEIGHT / 2 - h / 2;
+
+        graphics.drawImage(image, x, y, w, h, this);
     }
 
     public void setSprite(String path) {
