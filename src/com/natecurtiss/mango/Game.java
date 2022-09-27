@@ -5,33 +5,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends JFrame implements Runnable {
     public static final int WIDTH = 1280;
     public static final int HEIGHT = WIDTH / 16 * 9;
     public static final String NAME = "mango";
     private static final double UPDATE_RATE = 1.0 / 60.0;
 
     private final List<Entity> entities = new ArrayList<>();
-    private final JFrame frame;
     private boolean running;
     private int fps = 60;
 
     public Game() {
-        var size = new Dimension(WIDTH, HEIGHT);
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setPreferredSize(size);
-
-        frame = new JFrame(NAME);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-
-        frame.setResizable(false);
-        frame.setSize(size);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        var dimension = new Dimension(WIDTH, HEIGHT);
+        setSize(dimension);
+        setMinimumSize(dimension);
+        setMaximumSize(dimension);
+        setPreferredSize(dimension);
+        setResizable(false);
+        setTitle(NAME);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public synchronized void start() {
@@ -80,19 +74,19 @@ public class Game extends Canvas implements Runnable {
             e.render();
     }
 
-    public Game add(Entity entity) {
+    public Game create(Entity entity) {
+        add(entity);
+        pack();
         entity.init(this);
         entity.start();
         entities.add(entity);
-        frame.add(entity);
-        frame.pack();
         return this;
     }
 
-    public Game remove(Entity entity) {
+    public Game destroy(Entity entity) {
+        remove(entity);
         entity.end();
         entities.remove(entity);
-        frame.remove(entity);
         return this;
     }
 

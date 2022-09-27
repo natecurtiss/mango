@@ -7,6 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class Entity extends JPanel {
+    public double xScale = 1;
+    public double yScale = 1;
+    public double xPosition;
+    public double yPosition;
+
     private Image image;
     private Game game;
 
@@ -18,25 +23,25 @@ public abstract class Entity extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (image == null)
+            return;
         var graphics = (Graphics2D) g;
-        graphics.drawImage(image, 0, 0, this);
+        var x = (int) Math.round(xPosition) + Game.WIDTH / 2 - getWidth() / 2;
+        var y = (int) Math.round(yPosition) + Game.HEIGHT / 2 - getHeight() / 2;
+        var w = (int) (image.getWidth(this) * xScale);
+        var h = (int) (image.getHeight(this) * yScale);
+        graphics.drawImage(image, x, y, this);
     }
 
     public void setSprite(String path) {
-        try {
-            image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = new ImageIcon(path).getImage();
+        var w = image.getWidth(this);
+        var h = image.getHeight(this);
+        setSize(w, h);
     }
 
-    void init(Game g) {
-        game = g;
-    }
-
-    void destroy() {
-
-    }
+    void init(Game g) { game = g; }
+    void destroy() { }
 
     protected Game getGame() { return game; }
 }
