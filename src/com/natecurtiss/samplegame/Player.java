@@ -2,6 +2,8 @@ package com.natecurtiss.samplegame;
 
 import com.natecurtiss.mango.Sprite;
 
+import java.awt.event.KeyEvent;
+
 public class Player extends Sprite {
     @Override
     public void start() {
@@ -15,7 +17,8 @@ public class Player extends Sprite {
 
     @Override
     public void update(double dt) {
-
+        if (getInput().getKeyPressed(KeyEvent.VK_SPACE))
+            System.out.println("Space");
     }
 
     @Override

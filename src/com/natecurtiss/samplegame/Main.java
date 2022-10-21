@@ -1,6 +1,7 @@
 package com.natecurtiss.samplegame;
 
 import com.natecurtiss.mango.Game;
+import com.natecurtiss.mango.Input;
 
 public class Main {
     public static void main(String[] args) {

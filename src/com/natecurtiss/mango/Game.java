@@ -11,6 +11,7 @@ public class Game extends JFrame implements Runnable {
     public static final String NAME = "mango";
     private static final double UPDATE_RATE = 1.0 / 60.0;
 
+    private final Input input = new Input();
     private final List<Entity> entities = new ArrayList<>();
     private boolean running;
     private int fps = 60;
@@ -26,6 +27,7 @@ public class Game extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+        addKeyListener(input);
     }
 
     public synchronized void start() {
@@ -67,6 +69,7 @@ public class Game extends JFrame implements Runnable {
     public void update(double dt) {
         for (Entity e : entities)
             e.update(dt);
+        input.update();
     }
 
     public void render() {
@@ -77,7 +80,7 @@ public class Game extends JFrame implements Runnable {
     public Game create(Entity entity) {
         add(entity);
         pack();
-        entity.init(this);
+        entity.init(this, input);
         entity.start();
         entities.add(entity);
         return this;

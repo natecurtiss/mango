@@ -1,7 +1,6 @@
 package com.natecurtiss.mango;
 
 import javax.swing.*;
-import java.awt.*;
 
 public abstract class Entity extends JPanel {
     public double xScale = 1;
@@ -9,6 +8,7 @@ public abstract class Entity extends JPanel {
     public double xPosition;
     public double yPosition;
 
+    private Input input;
     private Game game;
 
     public abstract void start();
@@ -16,8 +16,15 @@ public abstract class Entity extends JPanel {
     public abstract void update(double dt);
     public abstract void render();
 
-    void init(Game g) { game = g; }
-    void destroy() { }
+    void init(Game g, Input i) {
+        game = g;
+        input = i;
+    }
 
+    void destroy() {
+
+    }
+
+    protected Input getInput() { return input; }
     protected Game getGame() { return game; }
 }
